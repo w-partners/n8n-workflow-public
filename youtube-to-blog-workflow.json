@@ -1,0 +1,85 @@
+{
+    "name": "YouTube to Blog Automation",
+    "nodes": [
+      {
+        "parameters": {
+          "resource": "video",
+          "operation": "list",
+          "regionCode": "KR",
+          "chart": "mostPopular",
+          "maxResults": 10,
+          "part": [
+            "snippet",
+            "statistics"
+          ]
+        },
+        "name": "YouTube Trigger",
+        "type": "n8n-nodes-base.youTube",
+        "typeVersion": 1,
+        "position": [
+          250,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "operation": "append",
+          "sheetName": "Raw Data",
+          "columns": {
+            "videoTitle": "={{$node[\"YouTube Trigger\"].json[\"snippet\"][\"title\"]}}",
+            "description": "={{$node[\"YouTube Trigger\"].json[\"snippet\"][\"description\"]}}",
+            "tags": "={{$node[\"YouTube Trigger\"].json[\"snippet\"][\"tags\"]}}",
+            "publishedAt": "={{$node[\"YouTube Trigger\"].json[\"snippet\"][\"publishedAt\"]}}"
+          }
+        },
+        "name": "Google Sheets",
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 2,
+        "position": [
+          450,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "prompt": "={{$node[\"YouTube Trigger\"].json[\"snippet\"][\"description\"]}}",
+          "model": "gpt-4",
+          "options": {
+            "temperature": 0.7,
+            "maxTokens": 500
+          }
+        },
+        "name": "OpenAI Summary",
+        "type": "n8n-nodes-base.openAi",
+        "typeVersion": 1,
+        "position": [
+          650,
+          300
+        ]
+      }
+    ],
+    "connections": {
+      "YouTube Trigger": {
+        "main": [
+          [
+            {
+              "node": "Google Sheets",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Sheets": {
+        "main": [
+          [
+            {
+              "node": "OpenAI Summary",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    }
+  }
