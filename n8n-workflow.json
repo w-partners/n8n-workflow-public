@@ -1,5 +1,5 @@
 {
-    "name": "My First n8n Workflow",
+    "name": "My First Workflow",
     "nodes": [
         {
             "parameters": {
@@ -22,7 +22,12 @@
             },
             "name": "YouTube API",
             "type": "n8n-nodes-base.httpRequest",
-            "position": [200, 200]
+            "typeVersion": 1,
+            "position": [
+                200,
+                200
+            ]
         }
-    ]
+    ],
+    "connections": {}
 }
