@@ -3,91 +3,41 @@
   "nodes": [
     {
       "parameters": {
-        "resource": "video",
         "operation": "list",
-        "limit": 10,
-        "filters": {
-          "regionCode": "KR"
-        },
-        "options": {
-          "part": "snippet,statistics,contentDetails",
-          "chart": "mostPopular"
-        }
+        "regionCode": "KR",
+        "maxResults": 10,
+        "part": [
+          "snippet",
+          "statistics",
+          "contentDetails"
+        ],
+        "order": "date",
+        "safeSearch": "none"
       },
-      "name": "YouTube Trending",
-      "type": "n8n-nodes-base.youtube",
-      "typeVersion": 1,
-      "position": [250, 300],
-      "notesInFlow": true,
-      "notes": "Fetches trending YouTube videos from Korea"
+      "name": "YouTube",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 2,
+      "position": [250, 300]
     },
     {
       "parameters": {
-        "resource": "spreadsheet",
         "operation": "read",
         "sheetName": "Form Responses 1",
         "spreadsheetId": "1k_i8-kcrPdsjl3GrPGlF1EsQnM1u57L0QC2MNS_xFMI",
-        "range": "A:Z",
-        "options": {
-          "returnAllMatches": true
-        }
+        "range": "A:Z"
       },
-      "name": "Google Form Responses",
+      "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 2,
-      "position": [250, 450],
-      "notesInFlow": true,
-      "notes": "Reads responses from content input form"
-    },
-    {
-      "parameters": {
-        "resource": "spreadsheet",
-        "operation": "append",
-        "spreadsheetId": "1k_i8-kcrPdsjl3GrPGlF1EsQnM1u57L0QC2MNS_xFMI",
-        "range": "Raw Data!A:G",
-        "options": {
-          "valueInputMode": "RAW"
-        },
-        "valueInputMode": "RAW"
-      },
-      "name": "Save Raw Data",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 2,
-      "position": [450, 300]
-    },
-    {
-      "parameters": {
-        "authentication": "apiKey",
-        "prompt": "=다음 콘텐츠를 요약해주세요:\n\n{{$node[\"YouTube Trending\"].json[\"snippet\"][\"description\"]}}",
-        "options": {
-          "model": "gpt-4",
-          "temperature": 0.7,
-          "maxTokens": 500
-        }
-      },
-      "name": "OpenAI Summary",
-      "type": "n8n-nodes-base.openAi",
-      "typeVersion": 1,
-      "position": [650, 300]
+      "typeVersion": 4,
+      "position": [250, 450]
     }
   ],
   "connections": {
-    "YouTube Trending": {
+    "YouTube": {
       "main": [
         [
           {
-            "node": "Save Raw Data",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Save Raw Data": {
-      "main": [
-        [
-          {
-            "node": "OpenAI Summary",
+            "node": "Google Sheets",
             "type": "main",
             "index": 0
           }
@@ -95,10 +45,8 @@
       ]
     }
   },
-  "settings": {
-    "executionOrder": "v1"
-  },
+  "settings": {},
   "staticData": null,
-  "tags": ["youtube", "blog", "automation"],
+  "tags": [],
   "triggerCount": 1
 }
