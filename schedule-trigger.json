@@ -2,25 +2,22 @@
     "nodes": [
         {
             "parameters": {
-                "rule": {
-                    "interval": [
+                "triggerTimes": {
+                    "item": [
                         {
-                            "field": "hours",
-                            "operation": "equals",
-                            "value": 8,
-                            "minutes": 10
+                            "mode": "custom",
+                            "hour": 8,
+                            "minute": 10
                         },
                         {
-                            "field": "hours",
-                            "operation": "equals",
-                            "value": 15,
-                            "minutes": 50
+                            "mode": "custom",
+                            "hour": 15,
+                            "minute": 50
                         },
                         {
-                            "field": "hours",
-                            "operation": "equals",
-                            "value": 18,
-                            "minutes": 10
+                            "mode": "custom",
+                            "hour": 18,
+                            "minute": 10
                         }
                     ]
                 },
@@ -29,17 +26,12 @@
             "id": "schedule-trigger-node",
             "name": "Schedule Trigger",
             "type": "n8n-nodes-base.scheduleTrigger",
-            "typeVersion": 1.1,
-            "position": [
-                250,
-                300
-            ]
+            "typeVersion": 1,
+            "position": [250, 300]
         }
     ],
     "connections": {},
-    "pinData": {},
-    "settings": {},
-    "staticData": null,
-    "tags": [],
-    "triggerCount": 1
+    "settings": {
+        "timezone": "Asia/Seoul"
+    }
 }
