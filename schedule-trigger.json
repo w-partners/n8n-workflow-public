@@ -2,23 +2,22 @@
     "nodes": [
         {
             "parameters": {
-                "rules": [
-                    {
-                        "triggerInterval": "Daily",
-                        "triggerAtHour": "8",
-                        "triggerAtMinute": "10"
-                    },
-                    {
-                        "triggerInterval": "Daily",
-                        "triggerAtHour": "15",
-                        "triggerAtMinute": "50"
-                    },
-                    {
-                        "triggerInterval": "Daily",
-                        "triggerAtHour": "18",
-                        "triggerAtMinute": "10"
-                    }
-                ]
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "cronExpression",
+                            "expression": "10 8 * * *"
+                        },
+                        {
+                            "field": "cronExpression",
+                            "expression": "50 15 * * *"
+                        },
+                        {
+                            "field": "cronExpression",
+                            "expression": "10 18 * * *"
+                        }
+                    ]
+                }
             },
             "id": "schedule-trigger-node",
             "name": "Schedule Trigger",
