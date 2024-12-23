@@ -2,50 +2,70 @@
     "nodes": [
         {
             "parameters": {
-                "rule": {
-                    "interval": [
+                "triggerTimes": {
+                    "item": [
                         {
-                            "field": "cronExpression",
-                            "expression": "10 8 * * *"
+                            "mode": "custom",
+                            "cronExpression": "10 8 * * *"
                         },
                         {
-                            "field": "cronExpression",
-                            "expression": "50 15 * * *"
+                            "mode": "custom",
+                            "cronExpression": "50 15 * * *"
                         },
                         {
-                            "field": "cronExpression",
-                            "expression": "10 18 * * *"
+                            "mode": "custom",
+                            "cronExpression": "10 18 * * *"
                         }
                     ]
                 }
             },
+            "id": "schedule-trigger-node",
             "name": "Schedule Trigger",
             "type": "n8n-nodes-base.scheduleTrigger",
-            "typeVersion": 1,
+            "typeVersion": 1.1,
             "position": [250, 300]
         },
         {
             "parameters": {
+                "authentication": "oAuth2",
                 "resource": "videos",
                 "operation": "list",
                 "regionCode": "KR",
                 "maxResults": 10,
                 "chart": "mostPopular",
                 "part": ["snippet", "statistics"],
+                "returnAll": false,
                 "filters": {
                     "order": "viewCount"
-                },
-                "returnAll": false
+                }
             },
+            "id": "youtube-node",
             "name": "YouTube",
             "type": "n8n-nodes-base.youTube",
-            "typeVersion": 1,
-            "position": [450, 300]
+            "typeVersion": 1.1,
+            "position": [450, 300],
+            "credentials": {
+                "youTubeOAuth2Api": {
+                    "id": "youtube-oauth2",
+                    "name": "YouTube account"
+                }
+            }
         }
     ],
     "connections": {
         "Schedule Trigger": {
-            "main": [[{"node": "YouTube", "type": "main", "index": 0}]]
+            "main": [
+                [
+                    {
+                        "node": "YouTube",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
         }
+    },
+    "settings": {
+        "executionOrder": "v1"
     }
 }
