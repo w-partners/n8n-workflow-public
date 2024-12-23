@@ -1,0 +1,69 @@
+{
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "cronExpression",
+                            "expression": "10 8 * * *"
+                        },
+                        {
+                            "field": "cronExpression",
+                            "expression": "50 15 * * *"
+                        },
+                        {
+                            "field": "cronExpression",
+                            "expression": "10 18 * * *"
+                        }
+                    ]
+                }
+            },
+            "id": "schedule-trigger-node",
+            "name": "Schedule Trigger",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1,
+            "position": [250, 300]
+        },
+        {
+            "parameters": {
+                "operation": "list",
+                "regionCode": "KR",
+                "maxResults": 10,
+                "chart": "mostPopular",
+                "videoCategoryId": "",
+                "part": ["snippet", "statistics"],
+                "filters": {
+                    "order": "viewCount"
+                },
+                "limit": 10,
+                "returnAll": false
+            },
+            "id": "youtube-node",
+            "name": "YouTube",
+            "type": "n8n-nodes-base.youTube",
+            "typeVersion": 1,
+            "position": [450, 300],
+            "credentials": {
+                "youTubeOAuth2Api": {
+                    "id": "youtube-oauth2",
+                    "name": "YouTube OAuth2 API"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "schedule-trigger-node": {
+            "main": [
+                [
+                    {
+                        "node": "youtube-node",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {}
+}
