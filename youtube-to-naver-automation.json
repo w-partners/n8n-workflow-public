@@ -1,45 +1,20 @@
 {
     "nodes": [
+        // Schedule Trigger 노드는 그대로 유지
         {
             "parameters": {
-                "rule": {
-                    "interval": [
-                        {
-                            "field": "cronExpression",
-                            "expression": "10 8 * * *"
-                        },
-                        {
-                            "field": "cronExpression",
-                            "expression": "50 15 * * *"
-                        },
-                        {
-                            "field": "cronExpression",
-                            "expression": "10 18 * * *"
-                        }
-                    ]
-                }
-            },
-            "id": "schedule-trigger-node",
-            "name": "Schedule Trigger",
-            "type": "n8n-nodes-base.scheduleTrigger",
-            "typeVersion": 1,
-            "position": [250, 300]
-        },
-        {
-            "parameters": {
+                "authentication": "oAuth2",
                 "operation": "list",
+                "resource": "videos",
                 "regionCode": "KR",
                 "maxResults": 10,
                 "chart": "mostPopular",
-                "videoCategoryId": "",
                 "part": ["snippet", "statistics"],
+                "returnAll": false,
                 "filters": {
                     "order": "viewCount"
-                },
-                "limit": 10,
-                "returnAll": false
+                }
             },
-            "id": "youtube-node",
             "name": "YouTube",
             "type": "n8n-nodes-base.youTube",
             "typeVersion": 1,
@@ -53,17 +28,8 @@
         }
     ],
     "connections": {
-        "schedule-trigger-node": {
-            "main": [
-                [
-                    {
-                        "node": "youtube-node",
-                        "type": "main",
-                        "index": 0
-                    }
-                ]
-            ]
+        "Schedule Trigger": {
+            "main": [[{"node": "YouTube", "type": "main", "index": 0}]]
         }
-    },
-    "settings": {}
+    }
 }
