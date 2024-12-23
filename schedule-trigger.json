@@ -2,26 +2,23 @@
     "nodes": [
         {
             "parameters": {
-                "triggerTimes": {
-                    "item": [
-                        {
-                            "mode": "custom",
-                            "hour": 8,
-                            "minute": 10
-                        },
-                        {
-                            "mode": "custom",
-                            "hour": 15,
-                            "minute": 50
-                        },
-                        {
-                            "mode": "custom",
-                            "hour": 18,
-                            "minute": 10
-                        }
-                    ]
-                },
-                "timezone": "Asia/Seoul"
+                "rules": [
+                    {
+                        "triggerInterval": "Daily",
+                        "triggerAtHour": "8",
+                        "triggerAtMinute": "10"
+                    },
+                    {
+                        "triggerInterval": "Daily",
+                        "triggerAtHour": "15",
+                        "triggerAtMinute": "50"
+                    },
+                    {
+                        "triggerInterval": "Daily",
+                        "triggerAtHour": "18",
+                        "triggerAtMinute": "10"
+                    }
+                ]
             },
             "id": "schedule-trigger-node",
             "name": "Schedule Trigger",
@@ -31,7 +28,5 @@
         }
     ],
     "connections": {},
-    "settings": {
-        "timezone": "Asia/Seoul"
-    }
+    "settings": {}
 }
