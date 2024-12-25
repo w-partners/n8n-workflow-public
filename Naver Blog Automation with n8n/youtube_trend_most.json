@@ -26,7 +26,7 @@
               },
               {
                 "name": "regionCode",
-                "value": "KR"  // 한국 급상승 동영상
+                "value": "KR"
               },
               {
                 "name": "maxResults",
@@ -34,7 +34,7 @@
               },
               {
                 "name": "apiKey",
-                "value": "AIzaSyDQrqyPzPPOwDGmrAAK2p1OQcfsdafsf" // 여기에 API 키를 입력하세요
+                "value": "AIzaSyDQrqyPzPPOwDGmrAAK2p1OQc7Lc_8lfyk"
               }
             ]
           }
@@ -85,6 +85,17 @@
       }
     ],
     "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "Set Parameters",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Set Parameters": {
         "main": [
           [
