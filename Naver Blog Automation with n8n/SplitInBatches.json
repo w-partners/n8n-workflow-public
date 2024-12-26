@@ -1,4 +1,5 @@
 {
+    "name": "YouTube 10 Parallel Flows",
     "nodes": [
       {
         "parameters": {},
@@ -9,144 +10,43 @@
       },
       {
         "parameters": {
-          "functionCode": "return [\n  {\n    json: { videoId: \"1\", title: \"Video 1\", url: \"https://example.com/1\" }\n  },\n  {\n    json: { videoId: \"2\", title: \"Video 2\", url: \"https://example.com/2\" }\n  },\n  {\n    json: { videoId: \"3\", title: \"Video 3\", url: \"https://example.com/3\" }\n  },\n  {\n    json: { videoId: \"4\", title: \"Video 4\", url: \"https://example.com/4\" }\n  },\n  {\n    json: { videoId: \"5\", title: \"Video 5\", url: \"https://example.com/5\" }\n  },\n  {\n    json: { videoId: \"6\", title: \"Video 6\", url: \"https://example.com/6\" }\n  },\n  {\n    json: { videoId: \"7\", title: \"Video 7\", url: \"https://example.com/7\" }\n  },\n  {\n    json: { videoId: \"8\", title: \"Video 8\", url: \"https://example.com/8\" }\n  },\n  {\n    json: { videoId: \"9\", title: \"Video 9\", url: \"https://example.com/9\" }\n  },\n  {\n    json: { videoId: \"10\", title: \"Video 10\", url: \"https://example.com/10\" }\n  }\n];"
+          "functionCode": "return [\n  { json: { title: \"Video 1\", url: \"https://youtube.com/watch?v=1\" } },\n  { json: { title: \"Video 2\", url: \"https://youtube.com/watch?v=2\" } },\n  { json: { title: \"Video 3\", url: \"https://youtube.com/watch?v=3\" } },\n  { json: { title: \"Video 4\", url: \"https://youtube.com/watch?v=4\" } },\n  { json: { title: \"Video 5\", url: \"https://youtube.com/watch?v=5\" } },\n  { json: { title: \"Video 6\", url: \"https://youtube.com/watch?v=6\" } },\n  { json: { title: \"Video 7\", url: \"https://youtube.com/watch?v=7\" } },\n  { json: { title: \"Video 8\", url: \"https://youtube.com/watch?v=8\" } },\n  { json: { title: \"Video 9\", url: \"https://youtube.com/watch?v=9\" } },\n  { json: { title: \"Video 10\", url: \"https://youtube.com/watch?v=10\" } }\n];"
         },
-        "name": "Generate Video Data",
+        "name": "Generate Videos",
         "type": "n8n-nodes-base.function",
         "typeVersion": 1,
         "position": [450, 300]
       },
       {
         "parameters": {
-          "values": {
-            "string": [
-              {
-                "name": "Video Title",
-                "value": "={{$json[\"title\"]}}"
-              },
-              {
-                "name": "Video URL",
-                "value": "={{$json[\"url\"]}}"
-              }
-            ]
-          }
+          "functionCode": "return items.map(item => {\n  console.log('Processing video:', item.json.title);\n  return item;\n});"
         },
-        "name": "Video 1 Node",
-        "type": "n8n-nodes-base.set",
+        "name": "Process Video 1",
+        "type": "n8n-nodes-base.function",
         "typeVersion": 1,
         "position": [650, 100]
       },
       {
         "parameters": {
-          "values": {
-            "string": [
-              {
-                "name": "Video Title",
-                "value": "={{$json[\"title\"]}}"
-              },
-              {
-                "name": "Video URL",
-                "value": "={{$json[\"url\"]}}"
-              }
-            ]
-          }
+          "functionCode": "return items.map(item => {\n  console.log('Processing video:', item.json.title);\n  return item;\n});"
         },
-        "name": "Video 2 Node",
-        "type": "n8n-nodes-base.set",
+        "name": "Process Video 2",
+        "type": "n8n-nodes-base.function",
         "typeVersion": 1,
         "position": [650, 200]
-      },
-      {
-        "parameters": {
-          "values": {
-            "string": [
-              {
-                "name": "Video Title",
-                "value": "={{$json[\"title\"]}}"
-              },
-              {
-                "name": "Video URL",
-                "value": "={{$json[\"url\"]}}"
-              }
-            ]
-          }
-        },
-        "name": "Video 3 Node",
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 1,
-        "position": [650, 300]
-      },
-      {
-        "parameters": {
-          "values": {
-            "string": [
-              {
-                "name": "Video Title",
-                "value": "={{$json[\"title\"]}}"
-              },
-              {
-                "name": "Video URL",
-                "value": "={{$json[\"url\"]}}"
-              }
-            ]
-          }
-        },
-        "name": "Video 4 Node",
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 1,
-        "position": [650, 400]
-      },
-      {
-        "parameters": {
-          "values": {
-            "string": [
-              {
-                "name": "Video Title",
-                "value": "={{$json[\"title\"]}}"
-              },
-              {
-                "name": "Video URL",
-                "value": "={{$json[\"url\"]}}"
-              }
-            ]
-          }
-        },
-        "name": "Video 5 Node",
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 1,
-        "position": [650, 500]
       }
-      // 나머지 5개 노드도 추가 (Video 6 Node ~ Video 10 Node)
+      // ... Repeat for all 10 processing nodes ...
     ],
     "connections": {
-      "Generate Video Data": {
+      "Start": {
+        "main": [[{ "node": "Generate Videos", "type": "main", "index": 0 }]]
+      },
+      "Generate Videos": {
         "main": [
           [
-            {
-              "node": "Video 1 Node",
-              "type": "main",
-              "index": 0
-            },
-            {
-              "node": "Video 2 Node",
-              "type": "main",
-              "index": 1
-            },
-            {
-              "node": "Video 3 Node",
-              "type": "main",
-              "index": 2
-            },
-            {
-              "node": "Video 4 Node",
-              "type": "main",
-              "index": 3
-            },
-            {
-              "node": "Video 5 Node",
-              "type": "main",
-              "index": 4
-            }
+            { "node": "Process Video 1", "type": "main", "index": 0 },
+            { "node": "Process Video 2", "type": "main", "index": 1 }
+            // ... Add all 10 connections here ...
           ]
         ]
       }
