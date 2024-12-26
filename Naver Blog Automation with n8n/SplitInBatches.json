@@ -1,5 +1,5 @@
 {
-    "name": "YouTube 10 Parallel Flows",
+    "name": "YouTube Parallel Flows",
     "nodes": [
       {
         "parameters": {},
@@ -16,39 +16,11 @@
         "type": "n8n-nodes-base.function",
         "typeVersion": 1,
         "position": [450, 300]
-      },
-      {
-        "parameters": {
-          "functionCode": "return items.map(item => {\n  console.log('Processing video:', item.json.title);\n  return item;\n});"
-        },
-        "name": "Process Video 1",
-        "type": "n8n-nodes-base.function",
-        "typeVersion": 1,
-        "position": [650, 100]
-      },
-      {
-        "parameters": {
-          "functionCode": "return items.map(item => {\n  console.log('Processing video:', item.json.title);\n  return item;\n});"
-        },
-        "name": "Process Video 2",
-        "type": "n8n-nodes-base.function",
-        "typeVersion": 1,
-        "position": [650, 200]
       }
-      // ... Repeat for all 10 processing nodes ...
     ],
     "connections": {
       "Start": {
         "main": [[{ "node": "Generate Videos", "type": "main", "index": 0 }]]
-      },
-      "Generate Videos": {
-        "main": [
-          [
-            { "node": "Process Video 1", "type": "main", "index": 0 },
-            { "node": "Process Video 2", "type": "main", "index": 1 }
-            // ... Add all 10 connections here ...
-          ]
-        ]
       }
     }
   }
