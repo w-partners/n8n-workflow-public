@@ -1,0 +1,155 @@
+{
+    "nodes": [
+      {
+        "parameters": {},
+        "name": "Start",
+        "type": "n8n-nodes-base.start",
+        "typeVersion": 1,
+        "position": [250, 300]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [\n  {\n    json: { videoId: \"1\", title: \"Video 1\", url: \"https://example.com/1\" }\n  },\n  {\n    json: { videoId: \"2\", title: \"Video 2\", url: \"https://example.com/2\" }\n  },\n  {\n    json: { videoId: \"3\", title: \"Video 3\", url: \"https://example.com/3\" }\n  },\n  {\n    json: { videoId: \"4\", title: \"Video 4\", url: \"https://example.com/4\" }\n  },\n  {\n    json: { videoId: \"5\", title: \"Video 5\", url: \"https://example.com/5\" }\n  },\n  {\n    json: { videoId: \"6\", title: \"Video 6\", url: \"https://example.com/6\" }\n  },\n  {\n    json: { videoId: \"7\", title: \"Video 7\", url: \"https://example.com/7\" }\n  },\n  {\n    json: { videoId: \"8\", title: \"Video 8\", url: \"https://example.com/8\" }\n  },\n  {\n    json: { videoId: \"9\", title: \"Video 9\", url: \"https://example.com/9\" }\n  },\n  {\n    json: { videoId: \"10\", title: \"Video 10\", url: \"https://example.com/10\" }\n  }\n];"
+        },
+        "name": "Generate Video Data",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [450, 300]
+      },
+      {
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "Video Title",
+                "value": "={{$json[\"title\"]}}"
+              },
+              {
+                "name": "Video URL",
+                "value": "={{$json[\"url\"]}}"
+              }
+            ]
+          }
+        },
+        "name": "Video 1 Node",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 1,
+        "position": [650, 100]
+      },
+      {
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "Video Title",
+                "value": "={{$json[\"title\"]}}"
+              },
+              {
+                "name": "Video URL",
+                "value": "={{$json[\"url\"]}}"
+              }
+            ]
+          }
+        },
+        "name": "Video 2 Node",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 1,
+        "position": [650, 200]
+      },
+      {
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "Video Title",
+                "value": "={{$json[\"title\"]}}"
+              },
+              {
+                "name": "Video URL",
+                "value": "={{$json[\"url\"]}}"
+              }
+            ]
+          }
+        },
+        "name": "Video 3 Node",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 1,
+        "position": [650, 300]
+      },
+      {
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "Video Title",
+                "value": "={{$json[\"title\"]}}"
+              },
+              {
+                "name": "Video URL",
+                "value": "={{$json[\"url\"]}}"
+              }
+            ]
+          }
+        },
+        "name": "Video 4 Node",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 1,
+        "position": [650, 400]
+      },
+      {
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "Video Title",
+                "value": "={{$json[\"title\"]}}"
+              },
+              {
+                "name": "Video URL",
+                "value": "={{$json[\"url\"]}}"
+              }
+            ]
+          }
+        },
+        "name": "Video 5 Node",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 1,
+        "position": [650, 500]
+      }
+      // 나머지 5개 노드도 추가 (Video 6 Node ~ Video 10 Node)
+    ],
+    "connections": {
+      "Generate Video Data": {
+        "main": [
+          [
+            {
+              "node": "Video 1 Node",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Video 2 Node",
+              "type": "main",
+              "index": 1
+            },
+            {
+              "node": "Video 3 Node",
+              "type": "main",
+              "index": 2
+            },
+            {
+              "node": "Video 4 Node",
+              "type": "main",
+              "index": 3
+            },
+            {
+              "node": "Video 5 Node",
+              "type": "main",
+              "index": 4
+            }
+          ]
+        ]
+      }
+    }
+  }
+  
