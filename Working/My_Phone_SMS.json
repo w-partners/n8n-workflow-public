@@ -1,0 +1,319 @@
+{
+  "name": "My Phone SMS",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.pushbullet.com/v2/users/me",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Access-Token",
+              "value": "={{ $json.access_token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        560,
+        220
+      ],
+      "id": "123abaaf-da17-45e1-b519-01229bebb38b",
+      "name": "v2/users/me"
+    },
+    {
+      "parameters": {
+        "url": "https://api.pushbullet.com/v2/devices",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Access-Token",
+              "value": "={{ $('Edit Fields').item.json.access_token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        840,
+        220
+      ],
+      "id": "98010f79-5a64-4d6a-9259-6c22b23f2d9e",
+      "name": "v2/devices"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.pushbullet.com/v2/texts",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Access-Token",
+              "value": "={{ $('Edit Fields').item.json.access_token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"data\": {\n    \"addresses\": [\n      \"{{ $('Edit Fields').item.json.receiver }}\"\n    ],\n    \"message\": \"{{ $('Edit Fields').item.json.message }}\",\n    \"target_device_iden\": \"{{ $json.devices[0].iden }}\"\n  }\n}\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        220
+      ],
+      "id": "ebb55de5-502f-4637-bdd1-f4f8766cca51",
+      "name": "v2/texts"
+    },
+    {
+      "parameters": {
+        "content": "## me\n- 현재 사용자를 확인하는 API \n- Access Token 작동여부 확인\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        480,
+        40
+      ],
+      "id": "4e182d5b-318b-4bdf-ba9b-6021f5f54915",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "61e361d5-34ca-4638-b66a-2e0cbc4fdf2b",
+              "name": "access_token",
+              "value": "o.9LYkcjcPOCNWeodKbKDikc6g6kxBVoEW",
+              "type": "string"
+            },
+            {
+              "id": "4e58806c-b3d4-476a-a6a2-6a625f6ac5b2",
+              "name": "receiver",
+              "value": "={{ $json.body.data.fields[0].value }}",
+              "type": "string"
+            },
+            {
+              "id": "57a3f2aa-710b-418e-bafc-6810cbd8e004",
+              "name": "message",
+              "value": "={{ $json.body.data.fields[1].value }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        300,
+        220
+      ],
+      "id": "471f8a50-0e2a-4fe0-9109-6d5b07cc7ab8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "## 내 핸드폰과 연동해서 무료 문자 보내는 방법\n- https://docs.pushbullet.com/#api-overview\nEdit Fields에 아래 내용 추가\n1. Access Token\n2. \"받는 이\" 번호 (+82) 국제규격에 맞게 쓰기\n3. 작성할 메시지",
+        "height": 200,
+        "width": 440
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e5e64477-5a4b-4475-a424-6734701eb5ee",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## [Devices](https://docs.pushbullet.com/#list-devices)\n- target_device_iden - 메시지를 보낼 장치의 장치_iden입니다. 이 장치는 SMS 안드로이드 권한이 부여되어야 합니다."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        780,
+        40
+      ],
+      "id": "e39ad666-15fc-4a46-9b76-7b21e12e48ee",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## [Texts](https://docs.pushbullet.com/#create-text)\n- \"어떤 텍스트(message)\"를 \"누구(addresses)\"에게 \"어떤 디바이스(target_device_iden)\"로 보낼 것인지 정의하기."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        40
+      ],
+      "id": "6018470d-51cb-46da-9ee8-46f68c5da817",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "url": "https://api.pushbullet.com/v2/devices",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Access-Token",
+              "value": "o.9LYkcjcPOCNWeodKbKDikc6g6kxBVoEW"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        540
+      ],
+      "id": "296caeb0-d50f-4671-a33b-293c5faf7bb9",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.pushbullet.com/v2/texts",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Access-Token",
+              "value": "<your_access_token_here>"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"data\": {\n    \"addresses\": [\n      \"+13035551212\"\n    ],\n    \"file_type\": \"image/jpeg\",\n    \"guid\": \"993aaa48567d91068e96c75a74644159\",\n    \"message\": \"Text message body.\",\n    \"target_device_iden\": \"ujpah72o0sjAoRtnM0jc\"\n  },\n  \"file_url\": \"https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        540
+      ],
+      "id": "8eb6d803-5185-474d-9162-34d10432e29b",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "tally-sms-webhook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        60,
+        220
+      ],
+      "id": "446a1c7f-9155-41d0-8c53-636b21a33c67",
+      "name": "Webhook",
+      "webhookId": "95eb147a-693c-479c-a7e7-18e9b58319bc"
+    },
+    {
+      "parameters": {
+        "content": "## Webhook - test\n**Double click**  [Page](https://tally.so/r/waZgJy)\nTally에서 Integrations에 webhook url을 넣어줘야함.\nwebhook은 \n[test url](https://w-partners.org/webhook-test/tally-sms-webhook)  \n[Production url](https://w-partners.org/webhook/tally-sms-webhook)\n둘다 넣어줌."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        220
+      ],
+      "id": "036331e8-f093-46ff-8601-50b841a38c99",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "v2/users/me": {
+      "main": [
+        [
+          {
+            "node": "v2/devices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "v2/devices": {
+      "main": [
+        [
+          {
+            "node": "v2/texts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "v2/users/me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "v2/texts": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d372824d-4116-4426-8be3-d5f1d2c19807",
+  "meta": {
+    "instanceId": "21efed0018ffa9a976569800cb6485377242c36d7ef04f30eea680bcf8c4045f"
+  },
+  "id": "F5BHunDeQX8mqYws",
+  "tags": []
+}

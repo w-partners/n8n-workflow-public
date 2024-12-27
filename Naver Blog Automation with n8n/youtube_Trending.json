@@ -1,0 +1,69 @@
+{
+  "name": "YouTube Trending Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "10 8 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        640,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Custom API Call",
+        "operation": "GET",
+        "endpoint": "/videos",
+        "options": {
+          "qs": {
+            "part": "snippet,contentDetails,statistics",
+            "chart": "mostPopular",
+            "regionCode": "KR",
+            "maxResults": 10
+          }
+        }
+      },
+      "id": "youtube-trending",
+      "name": "YouTube Trending",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        840,
+        340
+      ],
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "5ueMSFW5FM6KpKbF",
+          "name": "YouTube account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "schedule-trigger": {
+      "main": [
+        [
+          {
+            "node": "youtube-trending",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

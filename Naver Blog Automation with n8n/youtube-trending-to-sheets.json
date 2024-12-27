@@ -1,0 +1,80 @@
+{
+    "nodes": [
+        {
+            "parameters": {
+                "authentication": "oauth2",
+                "operation": "getAll",
+                "regionCode": "KR",
+                "maxResults": 10,
+                "filters": {
+                    "chart": "mostPopular",
+                    "videoCategoryId": ""
+                },
+                "part": [
+                    "snippet",
+                    "contentDetails",
+                    "statistics"
+                ],
+                "returnAll": false,
+                "options": {
+                    "language": "ko"
+                }
+            },
+            "id": "youtube-node",
+            "name": "YouTube Trending",
+            "type": "n8n-nodes-base.youtube",
+            "typeVersion": 1,
+            "position": [250, 300],
+            "credentials": {
+                "youtubeOAuth2Api": {
+                    "id": "youtube-oauth2-credentials",
+                    "name": "YouTube OAuth2 Account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "value": "1k_i8-kcrPdsjl3GrPGlF1EsQnM1u57L0QC2MNS_xFMI"
+                },
+                "sheetName": {
+                    "value": "Sheet1"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Content Topic": "={{ $node[\"youtube-node\"].json[\"snippet\"][\"title\"] }}",
+                        "Goal / text": "={{ $node[\"youtube-node\"].json[\"snippet\"][\"description\"] }}",
+                        "Primary Keyword": "={{ $node[\"youtube-node\"].json[\"snippet\"][\"tags\"].join(\", \") }}",
+                        "Style / Point of View / Scripts": "={{ $node[\"youtube-node\"].json[\"snippet\"][\"description\"] }}"
+                    }
+                }
+            },
+            "id": "google-sheets-node",
+            "name": "Google Sheets",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 2,
+            "position": [450, 300],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "google-sheets-oauth2-credentials",
+                    "name": "Google Sheets Account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "youtube-node": {
+            "main": [
+                [
+                    {
+                        "node": "google-sheets-node",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

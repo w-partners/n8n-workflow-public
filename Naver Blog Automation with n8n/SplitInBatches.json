@@ -1,0 +1,128 @@
+{
+    "name": "YouTube Split to 10 Nodes",
+    "nodes": [
+      {
+        "parameters": {},
+        "name": "Start",
+        "type": "n8n-nodes-base.start",
+        "typeVersion": 1,
+        "position": [250, 300]
+      },
+      {
+        "parameters": {
+          "functionCode": "return $input.all().map((item, index) => ({ json: { ...item.json, node: `Node ${index + 1}` }}));"
+        },
+        "name": "Split Items",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [450, 300]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 1', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 1",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [650, 100]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 2', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 2",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [650, 200]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 3', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 3",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [650, 300]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 4', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 4",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [650, 400]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 5', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 5",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [650, 500]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 6', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 6",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [650, 600]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 7', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 7",
+        "type": "n8n-nodes-base.function",
+        "typeVersion": 1,
+        "position": [650, 700]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 8', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 8",
+        "typeVersion": 1,
+        "position": [650, 800]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 9', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 9",
+        "typeVersion": 1,
+        "position": [650, 900]
+      },
+      {
+        "parameters": {
+          "functionCode": "return [{ json: { node: 'Node 10', title: $json.title || 'No Title' } }];"
+        },
+        "name": "Node 10",
+        "typeVersion": 1,
+        "position": [650, 1000]
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [[{ "node": "Split Items", "type": "main", "index": 0 }]]
+      },
+      "Split Items": {
+        "main": [
+          [{ "node": "Node 1", "type": "main", "index": 0 }],
+          [{ "node": "Node 2", "type": "main", "index": 1 }],
+          [{ "node": "Node 3", "type": "main", "index": 2 }],
+          [{ "node": "Node 4", "type": "main", "index": 3 }],
+          [{ "node": "Node 5", "type": "main", "index": 4 }],
+          [{ "node": "Node 6", "type": "main", "index": 5 }],
+          [{ "node": "Node 7", "type": "main", "index": 6 }],
+          [{ "node": "Node 8", "type": "main", "index": 7 }],
+          [{ "node": "Node 9", "type": "main", "index": 8 }],
+          [{ "node": "Node 10", "type": "main", "index": 9 }]
+        ]
+      }
+    }
+  }
+  

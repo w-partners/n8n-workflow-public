@@ -1,0 +1,1170 @@
+{
+  "name": "Time Tracking with Notion and iOS shortcut",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "1606d94c-60b8-8003-a904-fd9833bcf8b3",
+          "mode": "list",
+          "cachedResultName": "Time Tracker",
+          "cachedResultUrl": "https://www.notion.so/1606d94c60b88003a904fd9833bcf8b3"
+        },
+        "title": "Tracked Time via n8n",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Start|date",
+              "date": "={{ $now }}"
+            }
+          ]
+        },
+        "options": {
+          "icon": "🤖"
+        }
+      },
+      "id": "1ae951f1-acfa-4bd2-800e-22c7628e862d",
+      "name": "Create new page",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        1744.5882784260903,
+        520
+      ],
+      "typeVersion": 2.2,
+      "credentials": {
+        "notionApi": {
+          "id": "O12FS8pzH0tFFuzH",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.id }}"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "End|date",
+              "date": "={{ $now }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "490d1893-3828-4df6-8c0a-0a1476fc8727",
+      "name": "Update page with end date",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        2044.5882784260903,
+        1420
+      ],
+      "typeVersion": 2.2,
+      "credentials": {
+        "notionApi": {
+          "id": "O12FS8pzH0tFFuzH",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "6ec8bb5f-d860-47a8-b631-c9535716ddc5",
+              "operator": {
+                "type": "number",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.property_break }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "daef6212-b852-45ba-8100-103e231837cb",
+      "name": "If pause_in_minuten is empty",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        2024.5882784260903,
+        860
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "2130bdb4-54be-4d43-90bb-36f57826f2dc",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ef724c03-885e-4066-b776-a84fe001a14a",
+      "name": "If page responded",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1744.5882784260903,
+        900
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "2130bdb4-54be-4d43-90bb-36f57826f2dc",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json }}",
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "aa51a557-7eec-410a-9cdd-1dac3e2e104d",
+      "name": "If page exist",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1464.5882784260903,
+        440
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "2130bdb4-54be-4d43-90bb-36f57826f2dc",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "738aa465-bd04-4c4e-9846-02ae66139789",
+      "name": "If page exist1",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1464.5882784260903,
+        1480
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "6ec8bb5f-d860-47a8-b631-c9535716ddc5",
+              "operator": {
+                "type": "object",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.property_end }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4547c3fd-6373-401a-9d33-caa1e9f5545e",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1744.5882784260903,
+        1480
+      ],
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9261c98a-3099-4409-b697-8c28f6ec0c06",
+              "name": "break_duration",
+              "type": "number",
+              "value": "={{ $json.body.duration }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "70424282-dcce-4f1a-aba0-af0e7947a4fd",
+      "name": "Set Break Duration",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1224.5882784260903,
+        900
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.id }}"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Break|number",
+              "numberValue": "={{ $('Set Break Duration').item.json.break_duration }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ad1bd9ce-d7cc-4359-954b-8976f593c272",
+      "name": "Update break duration for current day",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        2304.5882784260903,
+        960
+      ],
+      "typeVersion": 2.2,
+      "credentials": {
+        "notionApi": {
+          "id": "O12FS8pzH0tFFuzH",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.id }}"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Break|number",
+              "numberValue": "={{ $('Set Break Duration').item.json.break_duration }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "622eddf9-f719-412f-a07e-45e4d8390798",
+      "name": "Set break duration for current day",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        2304.5882784260903,
+        780
+      ],
+      "typeVersion": 2.2,
+      "credentials": {
+        "notionApi": {
+          "id": "O12FS8pzH0tFFuzH",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "1606d94c-60b8-8003-a904-fd9833bcf8b3",
+          "mode": "list",
+          "cachedResultName": "Time Tracker",
+          "cachedResultUrl": "https://www.notion.so/1606d94c60b88003a904fd9833bcf8b3"
+        },
+        "limit": 1,
+        "filterType": "manual",
+        "filters": {
+          "conditions": [
+            {
+              "key": "Date|formula",
+              "condition": "equals",
+              "returnType": "text",
+              "textValue": "={{ $now.format('dd.MM.yyyy') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "29a96903-43f4-439d-9d35-95d557f7c544",
+      "name": "Get notion page by date",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        1464.5882784260903,
+        900
+      ],
+      "typeVersion": 2.2,
+      "alwaysOutputData": true,
+      "credentials": {
+        "notionApi": {
+          "id": "O12FS8pzH0tFFuzH",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "419d7570-d1ce-44b1-814c-7757da92a188",
+              "name": "message",
+              "type": "string",
+              "value": "End time already tracked."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bca3aff3-2d7d-4cc0-8842-5de6db67fccd",
+      "name": "Set Message - End time already tracked",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2564.5882784260903,
+        1600
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "419d7570-d1ce-44b1-814c-7757da92a188",
+              "name": "message",
+              "type": "string",
+              "value": "End Time Tracked!"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a774ac50-49f3-420b-96c5-e97f46857f02",
+      "name": "Set Message - End time tracked",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2564.5882784260903,
+        1420
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "419d7570-d1ce-44b1-814c-7757da92a188",
+              "name": "message",
+              "type": "string",
+              "value": "Today's start time not yet tracked!"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f50f5fc4-cf29-406b-940f-e8294c459b7f",
+      "name": "Set Message - Start time not yet tracked",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2564.5882784260903,
+        1780
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "419d7570-d1ce-44b1-814c-7757da92a188",
+              "name": "message",
+              "type": "string",
+              "value": "Today's start time not yet tracked!"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0450fc1d-9c3b-4af6-b5a4-52dc971a1a2e",
+      "name": "Set Message - Start not yet tracked",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2564.5882784260903,
+        1160
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "419d7570-d1ce-44b1-814c-7757da92a188",
+              "name": "message",
+              "type": "string",
+              "value": "=Tracked {{ $('Set Break Duration').item.json.break_duration }} minutes as break time."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fa1855df-e3b5-4052-b26a-7be840bcaf0c",
+      "name": "Set Message - Break time tracked",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2564.5882784260903,
+        780
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "419d7570-d1ce-44b1-814c-7757da92a188",
+              "name": "message",
+              "type": "string",
+              "value": "=Updated break time to {{ $('Set Break Duration').item.json.break_duration }} minutes."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3ba94d34-18e8-49d8-8924-4837d815e183",
+      "name": "Set Message - Break time updated",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2564.5882784260903,
+        960
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "419d7570-d1ce-44b1-814c-7757da92a188",
+              "name": "message",
+              "type": "string",
+              "value": "Start time already tracked."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "42465160-7eec-43ed-93ad-1d73745911a0",
+      "name": "Set Message - Start time already tracked",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2564.5882784260903,
+        340
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "419d7570-d1ce-44b1-814c-7757da92a188",
+              "name": "message",
+              "type": "string",
+              "value": "Start time tracked."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8d35a443-f8ef-40fd-b7a0-8933a7a38b27",
+      "name": "Set Message - Start time already tracked1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2564.5882784260903,
+        520
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "1606d94c-60b8-8003-a904-fd9833bcf8b3",
+          "mode": "list",
+          "cachedResultName": "Time Tracker",
+          "cachedResultUrl": "https://www.notion.so/1606d94c60b88003a904fd9833bcf8b3"
+        },
+        "limit": 1,
+        "filterType": "manual",
+        "filters": {
+          "conditions": [
+            {
+              "key": "Date|formula",
+              "condition": "equals",
+              "returnType": "text",
+              "textValue": "={{ $now.format('dd.MM.yyyy') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ee6e5e70-1d27-4edc-88d8-74b44611df39",
+      "name": "Get notion page with todays date",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        1224.5882784260903,
+        440
+      ],
+      "typeVersion": 2.2,
+      "alwaysOutputData": true,
+      "credentials": {
+        "notionApi": {
+          "id": "O12FS8pzH0tFFuzH",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.body.method }}",
+                    "rightValue": "start"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Start"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "6ddd1f12-a0d8-42df-9776-dff0f44ba82c",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.body.method }}",
+                    "rightValue": "break"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Break"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "61550dac-65a2-4e4b-99a8-4df4a357cec0",
+                    "operator": {
+                      "name": "filter.operator.equals",
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.body.method }}",
+                    "rightValue": "end"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "End"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "875f1969-4958-4450-87a5-aad1f65b3a9d",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "position": [
+        744.5882784260904,
+        900
+      ],
+      "typeVersion": 3.1
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "1606d94c-60b8-8003-a904-fd9833bcf8b3",
+          "mode": "list",
+          "cachedResultName": "Time Tracker",
+          "cachedResultUrl": "https://www.notion.so/1606d94c60b88003a904fd9833bcf8b3"
+        },
+        "limit": 1,
+        "filterType": "manual",
+        "filters": {
+          "conditions": [
+            {
+              "key": "Date|formula",
+              "condition": "equals",
+              "returnType": "text",
+              "textValue": "={{ $now.format('dd.MM.yyyy') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ab59018e-a41c-4c48-9aa7-33d123cb2215",
+      "name": "Get notion page with todays date1",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        1224.5882784260903,
+        1480
+      ],
+      "typeVersion": 2.2,
+      "alwaysOutputData": true,
+      "credentials": {
+        "notionApi": {
+          "id": "O12FS8pzH0tFFuzH",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Track start time",
+        "height": 469.85870733996774,
+        "width": 2127.3212174343475
+      },
+      "id": "8cbdbe7f-3c32-48bb-bce6-80b918a7c31e",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        964.5882784260904,
+        240
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Track break duration",
+        "height": 596.8497421429678,
+        "width": 2127.3212174343475
+      },
+      "id": "e930da00-916b-4767-a34e-b985d97090ca",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        964.5882784260904,
+        748.0197136978302
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Track end time",
+        "height": 627.9984865286092,
+        "width": 2127.3212174343475
+      },
+      "id": "6b77fcde-e3ed-4cfa-bd89-9d1cc6660591",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        964.5882784260904,
+        1380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## API Endpoint Trigger",
+        "height": 1760.750302860566,
+        "width": 538.9177312302156,
+        "color": 4
+      },
+      "id": "85b40d37-3a55-4346-8c94-60eb2f8b6dba",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        380,
+        240
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Setup instructions\nVisit our [Unitize Documents](https://docs.unitize.de) to create a copy of the Time Tracker database as well as download the iOS Shortcut.",
+        "height": 247.95862766773985,
+        "width": 534.5813587043364,
+        "color": 6
+      },
+      "id": "c09f93f1-a2c0-4146-8853-5283bd419a73",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        382.0832572549831,
+        -40
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.message }}",
+        "options": {}
+      },
+      "id": "bfe988d1-81c5-4c70-affd-220cfc5016da",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [
+        3264.5882784260903,
+        960
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "content": "## Respond to iOS Shortcut",
+        "height": 1766.1026447605514,
+        "width": 415.1572200385813,
+        "color": 4
+      },
+      "id": "585efbae-ec10-4ef4-90a0-7bad55b4a150",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3124.5882784260903,
+        240
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "track-time",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "b75485ce-d365-4743-a4ee-e16799e12c24",
+      "name": "Webhook - Track Time",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        464.58827842609037,
+        900
+      ],
+      "webhookId": "752a7723-87b6-470f-a7d3-f627f6457e39",
+      "typeVersion": 2
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Update page with end date",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Message - End time already tracked",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Get notion page with todays date",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Break Duration",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get notion page with todays date1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If page exist": {
+      "main": [
+        [
+          {
+            "node": "Set Message - Start time already tracked",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create new page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If page exist1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Message - Start time not yet tracked",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create new page": {
+      "main": [
+        [
+          {
+            "node": "Set Message - Start time already tracked1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If page responded": {
+      "main": [
+        [
+          {
+            "node": "If pause_in_minuten is empty",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Message - Start not yet tracked",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Break Duration": {
+      "main": [
+        [
+          {
+            "node": "Get notion page by date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook - Track Time": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get notion page by date": {
+      "main": [
+        [
+          {
+            "node": "If page responded",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update page with end date": {
+      "main": [
+        [
+          {
+            "node": "Set Message - End time tracked",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If pause_in_minuten is empty": {
+      "main": [
+        [
+          {
+            "node": "Set break duration for current day",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update break duration for current day",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Message - End time tracked": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get notion page with todays date": {
+      "main": [
+        [
+          {
+            "node": "If page exist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Message - Break time tracked": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Message - Break time updated": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get notion page with todays date1": {
+      "main": [
+        [
+          {
+            "node": "If page exist1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set break duration for current day": {
+      "main": [
+        [
+          {
+            "node": "Set Message - Break time tracked",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Message - Start not yet tracked": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update break duration for current day": {
+      "main": [
+        [
+          {
+            "node": "Set Message - Break time updated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Message - End time already tracked": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Message - Start time already tracked": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Message - Start time not yet tracked": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Message - Start time already tracked1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "3a819fb7-a22a-41d0-b75b-b3932cee8e37",
+  "meta": {
+    "templateId": "2447",
+    "instanceId": "21efed0018ffa9a976569800cb6485377242c36d7ef04f30eea680bcf8c4045f"
+  },
+  "id": "sLd9yzYhh7tdMKEt",
+  "tags": []
+}
