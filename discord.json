@@ -27,7 +27,7 @@
       },
       "name": "Gemini AI Process",
       "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 1,
+      "typeVersion": 2,
       "position": [450, 300]
     },
     {
@@ -46,7 +46,7 @@
       },
       "name": "Send Back to Discord",
       "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 1,
+      "typeVersion": 2,
       "position": [650, 300]
     },
     {
@@ -63,7 +63,7 @@
       },
       "name": "Check Approval",
       "type": "n8n-nodes-base.if",
-      "typeVersion": 1,
+      "typeVersion": 2,
       "position": [850, 300]
     },
     {
@@ -83,7 +83,7 @@
       },
       "name": "Post to X",
       "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 1,
+      "typeVersion": 2,
       "position": [1050, 300]
     }
   ],
@@ -123,11 +123,13 @@
     },
     "Check Approval": {
       "main": [
-        {
-          "node": "Post to X",
-          "type": "main",
-          "index": 0
-        }
+        [
+          {
+            "node": "Post to X",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   }
