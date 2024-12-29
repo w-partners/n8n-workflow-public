@@ -1,0 +1,134 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "path": "discord-command",
+        "httpMethod": "POST",
+        "responseMode": "onReceived"
+      },
+      "name": "Discord Slash Command",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://gemini-api-url/convert",
+        "method": "POST",
+        "responseFormat": "json",
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "text",
+              "value": "{{$json['body']['data']['text']}}"
+            }
+          ]
+        }
+      },
+      "name": "Gemini AI Process",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://discord.com/api/webhooks/{webhook-id}/{webhook-token}",
+        "method": "POST",
+        "responseFormat": "json",
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "content",
+              "value": "Transformed Message: {{$json['text']}}. Reply with 'approve' to post."
+            }
+          ]
+        }
+      },
+      "name": "Send Back to Discord",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "{{$json['body']['data']['text']}}",
+              "operation": "contains",
+              "value2": "approve"
+            }
+          ]
+        }
+      },
+      "name": "Check Approval",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.twitter.com/2/tweets",
+        "method": "POST",
+        "authentication": "oAuth2",
+        "responseFormat": "json",
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "text",
+              "value": "{{$json['text']}}"
+            }
+          ]
+        }
+      },
+      "name": "Post to X",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    }
+  ],
+  "connections": {
+    "Discord Slash Command": {
+      "main": [
+        [
+          {
+            "node": "Gemini AI Process",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini AI Process": {
+      "main": [
+        [
+          {
+            "node": "Send Back to Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Back to Discord": {
+      "main": [
+        [
+          {
+            "node": "Check Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Approval": {
+      "main": [
+        {
+          "node": "Post to X",
+          "type": "main",
+          "index": 0
+        }
+      ]
+    }
+  }
+}
