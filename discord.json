@@ -20,33 +20,33 @@
           "parameter": [
             {
               "name": "text",
-              "value": "{{$json['body']['data']['text']}}"
+              "value": "={{ $json['body']['data']['text'] }}"
             }
           ]
         }
       },
       "name": "Gemini AI Process",
       "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 2,
+      "typeVersion": 1,
       "position": [450, 300]
     },
     {
       "parameters": {
-        "url": "https://discord.com/api/webhooks/{webhook-id}/{webhook-token}",
+        "url": "https://discord.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz",
         "method": "POST",
         "responseFormat": "json",
         "bodyParametersUi": {
           "parameter": [
             {
               "name": "content",
-              "value": "Transformed Message: {{$json['text']}}. Reply with 'approve' to post."
+              "value": "Transformed Message: {{ $json['text'] }}. Reply with 'approve' to post."
             }
           ]
         }
       },
       "name": "Send Back to Discord",
       "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 2,
+      "typeVersion": 1,
       "position": [650, 300]
     },
     {
@@ -54,7 +54,7 @@
         "conditions": {
           "string": [
             {
-              "value1": "{{$json['body']['data']['text']}}",
+              "value1": "={{ $json['body']['data']['text'] }}",
               "operation": "contains",
               "value2": "approve"
             }
@@ -63,7 +63,7 @@
       },
       "name": "Check Approval",
       "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
+      "typeVersion": 1,
       "position": [850, 300]
     },
     {
@@ -76,14 +76,14 @@
           "parameter": [
             {
               "name": "text",
-              "value": "{{$json['text']}}"
+              "value": "={{ $json['text'] }}"
             }
           ]
         }
       },
       "name": "Post to X",
       "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 2,
+      "typeVersion": 1,
       "position": [1050, 300]
     }
   ],
